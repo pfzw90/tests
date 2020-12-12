@@ -1,14 +1,11 @@
 import requests
 import unittest
-import pprint
-from unittest.mock import patch
-import urllib.parse
 from yadisk import YandexFolderCreator
 
 
 class TestYandexDiskAPI(unittest.TestCase):
     def setUp(self):
-        self.uploader = YandexFolderCreator('XXX')
+        self.uploader = YandexFolderCreator('')
 
     def test_create_folder(self):
         test_directory = 'Test 1 2'
@@ -19,3 +16,6 @@ class TestYandexDiskAPI(unittest.TestCase):
 
         folders_list = [f['name'] for f in folders_resp.json().get('_embedded').get('items') if f['type'] == 'dir']
         self.assertIn('Test 1 2', folders_list)
+
+    def tearDown(self):
+        del self.uploader
